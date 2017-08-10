@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smses>
+    <sms code="money_return_clear" template="您在麦芽{0}元的分期账单已全部还清，结清日期为{1}。登录麦芽分期查看更多详情。"/>
+</smses>
