@@ -18,8 +18,10 @@ public class Generate {
 		configFilePath.add("/properties/jdbc.properties");
 		p.setUrls(configFilePath);
 
+		String projectName = p.get("generate.projectName");
+		String companyName = p.get("generate.companyName");
 		String systemName = p.get("generate.systemName");
-		String packageName = p.get("generate.packageName");
+
 
 		String generateAll = p.get("generate.all");
 		List<String> list = new ArrayList<String>();
@@ -37,7 +39,7 @@ public class Generate {
 		try {
 			for (String tableName : list) {
 				GenerateConfig config = new GenerateConfig(tableName,
-						systemName, packageName);
+						systemName, projectName,companyName);
 				FileBuilder builder = new FileBuilder(config);
 				builder.createMapper();
 				builder.createPo();
