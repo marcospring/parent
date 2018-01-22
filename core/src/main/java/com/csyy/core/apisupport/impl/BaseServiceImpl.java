@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.csyy.core.exception.CommonException;
 import org.springframework.stereotype.Service;
 
 import com.csyy.core.apisupport.BaseService;
@@ -103,5 +104,28 @@ public class BaseServiceImpl implements BaseService {
 			pageResult.setRecordsTotal(count);
 		}
 		return pageResult;
+	}
+
+	public <T> T id(Class<T> clazz, int id, String exceptionKey) {
+		T t;
+		if ((t = this.id(clazz, id)) == null)
+			throw new CommonException(exceptionKey);
+		return t;
+	}
+
+	public <T> T id(Class<T> clazz, int id) {
+		return this.factory.getCacheReadDataSession().querySingleResultById(clazz, id);
+	}
+
+	public <T> T uuid(Class<T> clazz, String uuid) {
+		return this.factory.getCacheReadDataSession().querySingleResultByUUID(clazz, uuid);
+	}
+
+	public <T> T uuid(Class<T> clazz, String uuid, String exceptionKey) {
+		T t;
+		if ((t = this.uuid(clazz, uuid)) == null)
+			throw new CommonException(exceptionKey);
+		return t;
+
 	}
 }
