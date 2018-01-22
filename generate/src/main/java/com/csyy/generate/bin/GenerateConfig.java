@@ -22,7 +22,8 @@ public class GenerateConfig {
     private String tableMiddle;
     private String workspacesPath;
     private String systemName;
-    private String packageName;
+    private String projectName;
+    private String companyName;
     private Map<String,String> typeMap = new HashMap<String,String>();
     /**包路径*/
     private List<String> importList = new ArrayList<String>();
@@ -44,11 +45,12 @@ public class GenerateConfig {
     private Map<String,Object> paramMaps = new HashMap<String,Object>();
     private Map<String,String> excludeColumnMap = new HashMap<String,String>();
 
-    public GenerateConfig(String tableName,String systemName,String packageName) throws Exception{
+    public GenerateConfig(String tableName,String systemName,String projectName,String companyName) throws Exception{
         //表名统一大写
         this.tableName = tableName.toUpperCase();
         this.systemName = systemName;
-        this.packageName = packageName;
+        this.projectName = projectName;
+        this.companyName = companyName;
         init();
     }
     private void init() throws Exception{
@@ -69,12 +71,12 @@ public class GenerateConfig {
         initExcludeColumn();
     }
 
-    public String getPackageName() {
-        return packageName;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     /**
@@ -257,5 +259,13 @@ public class GenerateConfig {
 
     public void setExcludeColumnMap(Map<String, String> excludeColumnMap) {
         this.excludeColumnMap = excludeColumnMap;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

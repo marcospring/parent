@@ -17,34 +17,36 @@ public class DelegateDistributedLock implements DistributedLock {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private RedisSessionFactory factory;
 
+
     @Override
-    public void lock(String uniqueKey, int var2) {
+    public void lock(String uniqueKey) throws DistributedLockException, RedisException {
+        lock(uniqueKey, DEFAULT_SINGLE_EXPIRE_TIME);
+    }
+
+    @Override
+    public void lock(String uniqueKey, int lockTime) {
         RedisSession session = null;
         try {
             session = factory.getSession();
-            do {
-                logger.debug("lock key: " + uniqueKey);
-                Long i = session.setnx(uniqueKey, uniqueKey);
-                if (i == 1) {
-                    session.expire(uniqueKey, var2);
-                    logger.debug("get lock, key: " + uniqueKey + " , expire in " + DEFAULT_SINGLE_EXPIRE_TIME + " seconds.");
-                    return;
-                } else {
-                    String desc = session.getData(uniqueKey);
-                    logger.debug("key: " + uniqueKey + " locked by another business：" + desc);
-                }
-                Thread.sleep(300);
-            } while (true);
+//            do {
+            logger.debug("lock key: " + uniqueKey);
+            Long i = session.setnx(uniqueKey, uniqueKey);
+            if (i == 1) {
+                session.expire(uniqueKey, lockTime);
+                logger.debug("get lock, key: " + uniqueKey + " , expire in " + lockTime + " seconds.");
+                return;
+            } else {
+                String desc = session.getData(uniqueKey);
+                logger.debug("key: " + uniqueKey + " locked by another business：" + desc);
+                throw new RuntimeException("key: " + uniqueKey + " locked by another business：" + desc);
+            }
+//                Thread.sleep(300);
+//            } while (true);
         } catch (RedisException e) {
             throw e;
         } catch (Exception e) {
             throw new DistributedLockException(e);
         }
-    }
-
-    @Override
-    public void lock(String uniqueKey) throws DistributedLockException, RedisException {
-        lock(uniqueKey, DEFAULT_SINGLE_EXPIRE_TIME);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class DelegateDistributedLock implements DistributedLock {
             factory.getSession().delete(uniqueKey);
         } catch (RedisException e) {
             throw e;
-        } catch (Exception e) {
+        }catch (Exception e){
             logger.error(e.getMessage(), e);
             throw new DistributedLockException(e);
         }

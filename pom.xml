@@ -4,11 +4,9 @@
 
     <groupId>com.csyy</groupId>
     <artifactId>parent</artifactId>
-    <version>1.2.5-RELEASE</version>
+    <version>1.2.6-RELEASE</version>
     <description>
-        1.修改自定义异常
-        2.po增加isdelete
-        3.sql查询类型由long改为int
+        1.修正缓存无法序列化的问题
     </description>
     <modules>
         <module>core</module>

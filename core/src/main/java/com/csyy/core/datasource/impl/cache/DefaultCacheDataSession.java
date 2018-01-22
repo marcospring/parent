@@ -280,6 +280,9 @@ public class DefaultCacheDataSession extends DefaultDataSession implements Cache
         } catch (RedisException e) {
             logger.error("queryListResult:RedisException:{}", e);
             list = super.queryListResult(clazz, param);
+        } catch (IllegalStateException e) {
+            logger.error("queryListResult:JSONException:{}", e);
+            list = super.queryListResult(clazz, param);
         } catch (Exception e) {
             logger.error("cacheDao访问异常:{}", e);
             throw new DataAccessException(e);
@@ -503,6 +506,9 @@ public class DefaultCacheDataSession extends DefaultDataSession implements Cache
             }
         } catch (RedisException e) {
             logger.error("queryVOListByCustomElementName:RedisException:{}", e);
+            list = super.queryVOListByCustomElementName(clazz, elementId, param);
+        } catch (IllegalStateException e) {
+            logger.error("queryVoListByCustomElementName:JSONException:{}", e);
             list = super.queryVOListByCustomElementName(clazz, elementId, param);
         } catch (Exception e) {
             logger.error("cacheDao访问异常:{}", e);
