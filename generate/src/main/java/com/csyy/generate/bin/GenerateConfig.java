@@ -1,7 +1,7 @@
 package com.csyy.generate.bin;
 
 import com.csyy.constant.Constants;
-import com.csyy.generate.po.BasePo;
+import com.csyy.core.obj.BasePo;
 import com.csyy.generate.po.GenerateColumn;
 import com.csyy.generate.utils.GenerateUtils;
 

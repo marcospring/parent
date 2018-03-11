@@ -3,7 +3,7 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>com.csyy</groupId>
-        <version>1.2.5-RELEASE</version>
+        <version>1.2.5-master-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
