@@ -46,7 +46,9 @@ public enum ESQLOperator {
 	/** ASC */
 	ASC(" ASC "),
 	/** DESC */
-	DESC(" DESC ");
+	DESC(" DESC "),
+	MINUS(" - "),
+	PLUS(" + ");
 	private String value;
 
 	ESQLOperator(String value) {
