@@ -81,4 +81,5 @@ public class GenerateColumn {
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
     }
+
 }

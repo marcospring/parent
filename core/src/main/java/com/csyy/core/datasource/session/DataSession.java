@@ -56,6 +56,18 @@ public interface DataSession {
     <T> int updateCustomColumnByWhere(Class<T> clazz, Param param, CustomSQL whereSql) throws DataAccessException;
 
     /**
+     * 根据whereSql 更新固定列信息
+     * @param clazz
+     * @param setStr
+     * @param whereSql
+     * @return
+     * @throws DataAccessException
+     * int
+     *
+     */
+    <T> int updateCustomStrByWhere(Class<T> clazz, String setStr, CustomSQL whereSql) throws DataAccessException;
+
+    /**
      * 逻辑删除数据库对象，设置disabled=1
      * @param clazz
      * @param param

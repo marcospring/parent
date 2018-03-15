@@ -235,9 +235,25 @@ public class DefaultDataSession implements DataSession {
     public <T> int updateCustomColumnByWhere(Class<T> clazz, Param param, CustomSQL whereSql)
             throws DataAccessException {
         try {
+            String setStr = SQLUtil.updateSql(param);
+            return updateCustomStrByWhere(clazz, setStr, whereSql);
+//            SqlSession session = getSession();
+//            Map<String, Object> strMap = new HashMap<String, Object>();
+//            strMap.put(UPDATE_STRING, SQLUtil.updateSql(param));
+//            strMap.put(WHERE_STRING, whereSql.toString());
+//            logger.debug("sql:[{}]", SQLUtil.getSql(session, SQLCreator.set(clazz, ESQL.UPDATECUSTOMCOLUMNBYWHERE).get(), strMap));
+//            return session.update(SQLCreator.set(clazz, ESQL.UPDATECUSTOMCOLUMNBYWHERE).get(), strMap);
+        } catch (Exception e) {
+            throw new DataAccessException(e);
+        }
+    }
+
+    @Override
+    public <T> int updateCustomStrByWhere(Class<T> clazz, String setStr, CustomSQL whereSql) throws DataAccessException {
+        try {
             SqlSession session = getSession();
             Map<String, Object> strMap = new HashMap<String, Object>();
-            strMap.put(UPDATE_STRING, SQLUtil.updateSql(param));
+            strMap.put(UPDATE_STRING, setStr);
             strMap.put(WHERE_STRING, whereSql.toString());
             logger.debug("sql:[{}]", SQLUtil.getSql(session, SQLCreator.set(clazz, ESQL.UPDATECUSTOMCOLUMNBYWHERE).get(), strMap));
             return session.update(SQLCreator.set(clazz, ESQL.UPDATECUSTOMCOLUMNBYWHERE).get(), strMap);

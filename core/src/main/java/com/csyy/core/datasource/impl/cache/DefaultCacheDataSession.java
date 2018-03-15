@@ -103,6 +103,19 @@ public class DefaultCacheDataSession extends DefaultDataSession implements Cache
     }
 
     @Override
+    public <T> int updateCustomStrByWhere(Class<T> clazz, String setStr, CustomSQL whereSql) throws DataAccessException{
+        int result;
+        try {
+            result = super.updateCustomStrByWhere(clazz, setStr, whereSql);
+            updateTableKey(systemKey, clazz);
+            updateDatabaseKey();
+        } catch (Exception e) {
+            throw new DataAccessException(e);
+        }
+        return result;
+    }
+
+    @Override
     public <T> int logicDelete(Class<T> clazz, Param param) throws DataAccessException {
         int result;
         try {
